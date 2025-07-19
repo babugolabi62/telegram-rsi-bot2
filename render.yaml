@@ -2,14 +2,13 @@ services:
   - type: web
     name: telegram-rsi-bot
     env: python
-    region: oregon  # можно сменить на нужный регион
-    plan: free      # или другой план по желанию
+    region: oregon
+    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python main.py
+    startCommand: gunicorn main2:app --bind 0.0.0.0:10000
     envVars:
       - key: TELEGRAM_TOKEN
         fromSecret: telegram_token_secret
       - key: TELEGRAM_CHAT_ID
         fromSecret: telegram_chat_id_secret
     autoDeploy: true
-
